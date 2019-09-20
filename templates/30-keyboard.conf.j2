@@ -1,0 +1,19 @@
+Section "InputClass"
+	Identifier "Happily Hacked Keyboard"
+	MatchDevicePath "/dev/input/event*"
+	MatchIsKeyboard "on"
+	Driver "evdev"
+
+	Option "XkbLayout" "us"
+	Option "XkbVariant" "hhk"
+EndSection
+
+Section "InputClass"
+	Identifier "Happy Hacking Keyboard"
+	MatchIsKeyboard "on"
+	MatchVendor "Topre_Corporation"
+	Driver "evdev"
+
+	Option "XkbLayout" "us"
+	Option "XkbVariant" "basic"
+EndSection

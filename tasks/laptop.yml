@@ -1,0 +1,4 @@
+---
+- name: Install synaptics driver
+  package:
+    name: xorg-x11-drv-synaptics

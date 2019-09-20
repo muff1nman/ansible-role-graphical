@@ -1,0 +1,22 @@
+---
+- name: Install xmonad
+  package: name=xmonad-mate,xmonad,ghc-xmonad-contrib-devel
+- name: Install haskell dbus dev package
+  package: name=ghc-dbus-devel
+- name: Ensure mate screensaver is removed
+  package: name=mate-screensaver state=absent
+- name: Install light locker
+  package: name=light-locker
+- name: Install caja
+  package: name=caja,caja-open-terminal,caja-share
+- package: name=compton
+- name: Install xloadimage
+  package: name=xloadimage
+- name: Install nitrogen
+  package:
+    name: nitrogen
+- name: Install dex-autostart
+  package:
+    name: dex-autostart
+- include_tasks: brightnessctl.yml
+# TODO acpi??

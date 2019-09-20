@@ -1,0 +1,35 @@
+---
+- name: Install Mate Desktop Environment
+  package:
+    name: "@mate-desktop-environment"
+  when: ansible_distribution != 'RedHat' or ansible_distribution_major_version != '7'
+- name: Install Mate Desktop Environment
+  package:
+    name: "@^MATE Desktop"
+  when: ansible_distribution == 'RedHat' and ansible_distribution_major_version == '7'
+#- package: name="mate-themes-extras"
+- name: Install xmonad
+  package: name=xmonad-mate,xmonad,ghc-xmonad-contrib-devel
+- name: Install haskell dbus dev package
+  package: name=ghc-dbus-devel
+- include_tasks: dmenu2.yml
+- name: Ensure mate screensaver is removed
+  package: name=mate-screensaver state=absent
+- name: Install light locker
+  package: name=light-locker
+- name: Install caja
+  package: name=caja,caja-open-terminal,caja-sendto,caja-share
+- name: Install caja terminal plugin
+  package: name=caja-open-terminal
+- name: Install mate applets
+  package: name=mate-applets,mate-power-manager
+- name: Install NetworkManager gui tools
+  package: name=network-manager-applet,nm-connection-editor
+- package: name=compton
+- name: Install xloadimage
+  package: name=xloadimage
+- name: Install nitrogen
+  package:
+    name: nitrogen
+- include_tasks: brightnessctl.yml
+# TODO acpi??

@@ -1,0 +1,4 @@
+---
+- name: Install libreoffice
+  package:
+    name: libreoffice-calc,libreoffice-writer,libreoffice-impress

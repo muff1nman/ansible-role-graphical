@@ -1,0 +1,4 @@
+---
+- copy: src=20-radeon.conf dest=/etc/X11/xorg.conf.d/20-radeon.conf backup=yes
+- copy: src=Xwrapper.config dest=/etc/X11/Xwrapper.config
+- file: path=/etc/X11/xorg.conf state=absent

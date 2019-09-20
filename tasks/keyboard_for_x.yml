@@ -1,0 +1,16 @@
+---
+- name: Check if xkeyboard-config is installed
+  command: rpm -q xkeyboard-config
+  register: keyboard_rpm_check
+  failed_when: "false"
+  changed_when: "false"
+- name: Check if xkeyboard-config-hhk is installed
+  command: rpm -q xkeyboard-config-hhk
+  register: keyboard_hhk_rpm_check
+  failed_when: "false"
+  changed_when: "false"
+- name: Swap xkeyboard-config with xkeyboard-config-hhk
+  command: yum -y swap -- remove xkeyboard-config -- install xkeyboard-config-hhk
+  when:  keyboard_rpm_check.rc is defined and keyboard_hhk_rpm_check.rc is defined and keyboard_rpm_check.rc == 0 and keyboard_hhk_rpm_check.rc != 0
+- name: Setup keyboard on boot
+  template: src=30-keyboard.conf.j2 dest=/etc/X11/xorg.conf.d/30-keyboard.conf

@@ -1,0 +1,35 @@
+---
+- name: Install lightdm gtk
+  package:
+    name: lightdm-gtk
+- name: Install lightdm slick greeter
+  package:
+    name: slick-greeter
+- name: Configure lightdm
+  copy:
+    src: lightdm.conf
+    dest: /etc/lightdm/lightdm.conf
+- name: Check if gdm is installed
+  command: rpm -q gdm
+  register: gdm_installed
+  failed_when: "false"
+  changed_when: "false"
+- name: Disable gdm
+  service:
+    name: gdm
+    enabled: no
+  when: gdm_installed.rc is defined and gdm_installed.rc == 0
+- name: Enable lightdm
+  service:
+    name: lightdm
+    enabled: yes
+- name: Enable lightdm (why twice?)
+  service:
+    name: lightdm
+    enabled: yes
+
+- name: Tweak systemd user environment variable for light dm/locker
+  copy:
+    src: 50-systemd-user.sh
+    dest: /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
+    mode: 0755

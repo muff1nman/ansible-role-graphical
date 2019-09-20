@@ -1,0 +1,18 @@
+---
+# Requires channel device of type unix at path org.qemu.guest_agent.0
+- name: Install qemu guest agent
+  package:
+    name: qemu-guest-agent
+- name: Install spice vdagent
+  package:
+    name: spice-vdagent
+- name: Enable spice vdagent
+  service:
+    name: spice-vdagentd
+    state: started
+    enabled: yes
+- name: Enable qemu guest agent
+  service:
+    name: qemu-guest-agent
+    state: started
+    enabled: yes

@@ -1,0 +1,6 @@
+---
+- name: Install prereqs for vbox additions
+  package:
+    name: kernel-devel,kernel-headers,dkms,gcc,gcc-c++,libXcomposite
+- name: Install Vbox Additions
+  script: install-vbox-additions.sh

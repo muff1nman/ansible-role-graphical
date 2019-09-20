@@ -1,0 +1,120 @@
+---
+- name: "Install base x system"
+  package:
+    name: "@base-x"
+  when: ansible_distribution != 'RedHat' or ansible_distribution_major_version != '7'
+- name: Install X Window System group
+  package:
+    name: "@X Window System"
+  when: ansible_distribution == 'RedHat' and ansible_distribution_major_version == '7'
+- include_tasks: vbox-additions.yml
+  when: "graphical_env is defined and graphical_env == 'virtualbox'"
+- name: Install open vm tools
+  package:
+    name: open-vm-tools
+  when: "graphical_env is defined and graphical_env == 'vmware'"
+- name: Install radeon driver
+  package:
+    name: xorg-x11-drv-ati
+  when: "graphical_env is defined and graphical_env == 'radeon'"
+- name: Install amdgpu driver
+  package:
+    name: xorg-x11-drv-amdgpu
+  when:
+    - graphical_env is defined
+    - graphical_env == 'amdgpu'"
+    - ansible_distribution != 'RedHat' or ansible_distribution_major_version != '7'
+- name: Configure /etc/default/grub
+  lineinfile:
+    path: /etc/default/grub
+    backup: yes
+    regexp: '^GRUB_CMDLINE_LINUX="(.*?\s)?(?:radeon.cik_support=0 radeon.si_support=0 amdgpu.cik_support=1 amdgpu.si_support=1 amdgpu.dc=1 amdgpu.dpm=1 )?\s??(.*?)?"$'
+    line: 'GRUB_CMDLINE_LINUX="\1radeon.cik_support=0 radeon.si_support=0 amdgpu.cik_support=1 amdgpu.si_support=1 amdgpu.dc=1 amdgpu.dpm=1 \2"'
+    backrefs: yes
+  when: 
+    - graphical_env is defined
+    - graphical_env == 'amdgpu'
+    - amd_gpu_workaround"
+    - ansible_distribution != 'RedHat' or ansible_distribution_major_version != '7'
+  notify: [ 'Update Boot Image' ]
+- include_tasks: laptop.yml
+  when: "laptop is defined and laptop == 'true'"
+- include_tasks: qemu-guest.yml
+  when: "graphical_env is defined and graphical_env == 'qemu'"
+- name: Install xclip
+  package:
+    name: xclip
+- name: Install remmina rdp
+  package:
+    name: remmina,remmina-plugins-rdp
+- name: Install thunderbird
+  package:
+    name: thunderbird,thunderbird-enigmail
+- name: Install python qrcode
+  package:
+    name: python3-qrcode
+- name: Install dbus-x11 (for managing dconf in dotfiles)
+  package:
+    name: dbus-x11
+
+- include_tasks: lightdm.yml
+  when: '"gnome3" not in desktop_wm_list'
+
+- block:
+  - include_tasks: xmonad-mate.yml
+  - include_tasks: keyboard_for_x.yml
+  - name: Install gnome sound recorder
+    package:
+      name: gnome-sound-recorder
+  - name: Install caja actions
+    package:
+      name: caja-actions
+  when: '"matexmonad" in desktop_wm_list'
+
+- block:
+  - include_tasks: xmonad.yml
+  - include_tasks: keyboard_for_x.yml
+  - name: Install gnome sound recorder
+    package:
+      name: gnome-sound-recorder
+  when: '"xmonad" in desktop_wm_list'
+
+- block:
+  - include_tasks: kde-i3.yml
+  when: '"kdei3" in desktop_wm_list'
+
+- block:
+  - name: Install dconf-editor
+    package:
+      name: dconf-editor
+  when: '"gnome3" in desktop_wm_list'
+
+- include_tasks: util.yml
+
+- name: Check default target
+  command: systemctl get-default
+  register: systemctl_default
+  changed_when: "false"
+- name: Ensure graphical environment is enabled
+  command: systemctl set-default graphical.target
+  when: "systemctl_default.stdout is defined and systemctl_default.stdout.find('graphical.target') == -1"
+- include_tasks: dual_head_x.yml
+  when: "x11 is defined and x11_heads == '2'"
+- name: Enable sysrq
+  copy:
+    src: 10-sysrq.conf
+    dest: /etc/sysctl.d/10-sysrq.conf
+- block:
+  - stat:
+      path: "/usr/bin/nautilus-sendto"
+    register: nautilussendto
+  - name: Setup symlink for nautilus sendto
+    file:
+      state: link
+      src: /usr/bin/caja-sendto
+      dest: /usr/bin/nautilus-sendto
+    when: nautilussendto.stat.exists == False
+  - include_role:
+      name: battery-watched
+    when: "laptop is defined and laptop == 'true'"
+  when: '"matexmonad" in desktop_wm_list'

@@ -1,0 +1,17 @@
+---
+- name: Check if dmenu is installed
+  command: rpm -q dmenu
+  register: keyboard_rpm_check
+  failed_when: "false"
+  changed_when: "false"
+- name: Check if dmenu2 is installed
+  command: rpm -q dmenu2
+  register: keyboard_hhk_rpm_check
+  failed_when: "false"
+  changed_when: "false"
+- name: Swap dmenu with dmenu2
+  command: yum -y --allowerasing install dmenu2
+  when: keyboard_rpm_check.rc is defined and keyboard_hhk_rpm_check.rc is defined and keyboard_rpm_check.rc == 0 and keyboard_hhk_rpm_check.rc != 0
+- name: Install dmenu2
+  package: name=dmenu2
+  when: keyboard_rpm_check.rc is defined and keyboard_hhk_rpm_check.rc is defined and keyboard_rpm_check.rc != 0 and keyboard_hhk_rpm_check.rc != 0

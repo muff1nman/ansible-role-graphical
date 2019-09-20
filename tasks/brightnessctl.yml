@@ -1,0 +1,10 @@
+---
+- name: Install brightnessctl
+  package:
+    name: brightnessctl
+- name: Add user to video group
+  user:
+    append: yes
+    name: "{{ local_user }}"
+    groups: video
+  when: local_user is defined

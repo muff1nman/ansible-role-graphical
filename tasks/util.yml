@@ -1,0 +1,34 @@
+---
+- name: Install pass
+  package: name=pass
+- name: Install Dunst
+  package: name=dunst
+- name: Install j4 dmenu
+  package: name=j4-dmenu-desktop
+- name: Install passmenu (No longer included in pass)
+  package:
+    name: passmenu
+  when: ansible_distribution != 'RedHat' or ansible_distribution_major_version != '7'
+- name: Install dev fonts
+  package:
+    name: dejavu-sans-mono-fonts,gdouros-symbola-fonts
+- name: Install external camera tools
+  package: name=gvfs-mtp,gvfs-gphoto2,eog,darktable,gvfs-smb,gvfs-fuse
+  #python2-smbc
+- package: name=engrampa
+- package: name=evince
+- package: name=qtpass
+- package: name=transmission
+- name: Install redshift
+  package:
+    name: redshift-gtk
+- name: Install shotwell
+  package:
+    name: shotwell
+- name: Install digikam
+  package:
+    name: digikam
+- name: Install selinux troubleshooter
+  package:
+    name: setroubleshoot
+- include_tasks: libreoffice.yml
