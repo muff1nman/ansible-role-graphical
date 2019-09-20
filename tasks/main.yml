@@ -22,7 +22,7 @@
     name: xorg-x11-drv-amdgpu
   when:
     - graphical_env is defined
-    - graphical_env == 'amdgpu'"
+    - graphical_env == 'amdgpu'
     - ansible_distribution != 'RedHat' or ansible_distribution_major_version != '7'
 - name: Configure /etc/default/grub
   lineinfile:
