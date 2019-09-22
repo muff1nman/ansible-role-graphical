@@ -9,8 +9,21 @@
   register: keyboard_hhk_rpm_check
   failed_when: "false"
   changed_when: "false"
-- name: Swap xkeyboard-config with xkeyboard-config-hhk
+- name: Swap xkeyboard-config with xkeyboard-config-hhk (yum)
   command: yum -y swap -- remove xkeyboard-config -- install xkeyboard-config-hhk
-  when:  keyboard_rpm_check.rc is defined and keyboard_hhk_rpm_check.rc is defined and keyboard_rpm_check.rc == 0 and keyboard_hhk_rpm_check.rc != 0
+  when:
+    - keyboard_rpm_check.rc is defined 
+    - keyboard_hhk_rpm_check.rc is defined 
+    - keyboard_rpm_check.rc == 0
+    - keyboard_hhk_rpm_check.rc != 0
+    - ansible_distribution == 'RedHat' and ansible_distribution_major_version == '7'
+- name: Swap xkeyboard-config with xkeyboard-config-hhk (dnf)
+  command: dnf -y --allowerasing install xkeyboard-config-hhk
+  when:
+    - keyboard_rpm_check.rc is defined 
+    - keyboard_hhk_rpm_check.rc is defined 
+    - keyboard_rpm_check.rc == 0
+    - keyboard_hhk_rpm_check.rc != 0
+    - ansible_distribution != 'RedHat' or ansible_distribution_major_version != '7'
 - name: Setup keyboard on boot
   template: src=30-keyboard.conf.j2 dest=/etc/X11/xorg.conf.d/30-keyboard.conf
