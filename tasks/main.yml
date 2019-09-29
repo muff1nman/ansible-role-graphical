@@ -31,14 +31,14 @@
     regexp: '^GRUB_CMDLINE_LINUX="(.*?\s)?(?:radeon.cik_support=0 radeon.si_support=0 amdgpu.cik_support=1 amdgpu.si_support=1 amdgpu.dc=1 amdgpu.dpm=1 )?\s??(.*?)?"$'
     line: 'GRUB_CMDLINE_LINUX="\1radeon.cik_support=0 radeon.si_support=0 amdgpu.cik_support=1 amdgpu.si_support=1 amdgpu.dc=1 amdgpu.dpm=1 \2"'
     backrefs: yes
-  when: 
+  when:
     - graphical_env is defined
     - graphical_env == 'amdgpu'
     - amd_gpu_workaround"
     - ansible_distribution != 'RedHat' or ansible_distribution_major_version != '7'
   notify: [ 'Update Boot Image' ]
 - include_tasks: laptop.yml
-  when: "laptop is defined and laptop == 'true'"
+  when: "laptop is defined and laptop"
 - include_tasks: qemu-guest.yml
   when: "graphical_env is defined and graphical_env == 'qemu'"
 - name: Install xclip
@@ -116,5 +116,5 @@
     when: nautilussendto.stat.exists == False
   - include_role:
       name: battery-watched
-    when: "laptop is defined and laptop == 'true'"
+    when: "laptop is defined"
   when: '"matexmonad" in desktop_wm_list'
