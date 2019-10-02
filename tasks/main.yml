@@ -2,11 +2,11 @@
 - name: "Install base x system"
   package:
     name: "@base-x"
-  when: ansible_distribution != 'RedHat' or ansible_distribution_major_version != '7'
+  when: ansible_os_family != 'RedHat' or ansible_distribution_major_version != '7'
 - name: Install X Window System group
   package:
     name: "@X Window System"
-  when: ansible_distribution == 'RedHat' and ansible_distribution_major_version == '7'
+  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'
 - include_tasks: vbox-additions.yml
   when: "graphical_env is defined and graphical_env == 'virtualbox'"
 - name: Install open vm tools
@@ -23,7 +23,7 @@
   when:
     - graphical_env is defined
     - graphical_env == 'amdgpu'
-    - ansible_distribution != 'RedHat' or ansible_distribution_major_version != '7'
+    - ansible_os_family != 'RedHat' or ansible_distribution_major_version != '7'
 - name: Configure /etc/default/grub
   lineinfile:
     path: /etc/default/grub
@@ -35,7 +35,7 @@
     - graphical_env is defined
     - graphical_env == 'amdgpu'
     - amd_gpu_workaround"
-    - ansible_distribution != 'RedHat' or ansible_distribution_major_version != '7'
+    - ansible_os_family != 'RedHat' or ansible_distribution_major_version != '7'
   notify: [ 'Update Boot Image' ]
 - include_tasks: laptop.yml
   when: "laptop is defined and laptop"
