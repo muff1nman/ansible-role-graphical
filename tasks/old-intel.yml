@@ -1,0 +1,5 @@
+---
+- name: Copy over intel x11 config
+  copy:
+    src: 20-intel.conf
+    dest: /etc/X11/xorg.conf.d/20-intel.conf
