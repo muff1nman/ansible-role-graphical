@@ -48,21 +48,18 @@
   when: "laptop is defined and laptop"
 - include_tasks: qemu-guest.yml
   when: "graphical_env is defined and graphical_env == 'qemu'"
-- name: Install xclip
+
+- name: Install some desktop apps
   package:
-    name: xclip
-- name: Install remmina rdp
-  package:
-    name: remmina,remmina-plugins-rdp
-- name: Install thunderbird
-  package:
-    name: thunderbird,thunderbird-enigmail
-- name: Install python qrcode
-  package:
-    name: python3-qrcode
-- name: Install dbus-x11 (for managing dconf in dotfiles)
-  package:
-    name: dbus-x11
+    name:
+    - xclip
+    - nheko
+    - remmina
+    - remmina-plugins-rdp
+    - thunderbird
+    - thunderbird-enigmail
+    - python3-qrcode
+    - dbus-x11
 
 - include_tasks: lightdm.yml
   when: '"gnome3" not in desktop_wm_list'
