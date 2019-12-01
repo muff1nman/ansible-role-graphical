@@ -1,6 +1,5 @@
 ---
 dependencies:
-  - { role: base }
   - { role: rsync-enabled }
   - { role: audio }
   - { role: boot-update }
