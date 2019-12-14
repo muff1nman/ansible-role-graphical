@@ -9,7 +9,7 @@
   package: name=light-locker
 - name: Install caja
   package: name=caja,caja-open-terminal,caja-share
-- package: name=compton
+- package: name=compton-ng
 - name: Install xloadimage
   package: name=xloadimage
 - name: Install nitrogen
