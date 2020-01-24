@@ -31,5 +31,4 @@
 - name: Install nitrogen
   package:
     name: nitrogen
-- include_tasks: brightnessctl.yml
 # TODO acpi??

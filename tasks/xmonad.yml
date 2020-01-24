@@ -18,5 +18,5 @@
 - name: Install dex-autostart
   package:
     name: dex-autostart
-- include_tasks: brightnessctl.yml
+
 # TODO acpi??
