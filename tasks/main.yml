@@ -7,8 +7,6 @@
   package:
     name: "@X Window System"
   when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'
-- include_tasks: vbox-additions.yml
-  when: "graphical_env is defined and graphical_env == 'virtualbox'"
 - name: Install open vm tools
   package:
     name: open-vm-tools
