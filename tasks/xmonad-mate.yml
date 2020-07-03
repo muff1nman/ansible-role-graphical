@@ -25,7 +25,7 @@
   package: name=mate-applets,mate-power-manager
 - name: Install NetworkManager gui tools
   package: name=network-manager-applet,nm-connection-editor
-- package: name=compton-ng
+- package: name=picom
 - name: Install xloadimage
   package: name=xloadimage
 - name: Install nitrogen
