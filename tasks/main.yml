@@ -15,6 +15,10 @@
   package:
     name: xorg-x11-drv-ati
   when: "graphical_env is defined and graphical_env == 'radeon'"
+- name: Install nouveau driver
+  package:
+    name: xorg-x11-drv-nouveau
+  when: "graphical_env is defined and graphical_env == 'nvidia'"
 - name: Install amdgpu driver
   package:
     name: xorg-x11-drv-amdgpu
