@@ -9,7 +9,10 @@
   package: name=light-locker
 - name: Install caja
   package: name=caja,caja-open-terminal,caja-share
-- package: name=picom
+- name: Install picom
+  package:
+    name: picom
+- include_tasks: rofi.yml
 - name: Install xloadimage
   package: name=xloadimage
 - name: Install nitrogen
