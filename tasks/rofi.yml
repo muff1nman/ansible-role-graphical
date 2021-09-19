@@ -1,0 +1,3 @@
+- name: Install rofi
+  package:
+    name: rofi

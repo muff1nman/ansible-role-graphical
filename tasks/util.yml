@@ -3,12 +3,6 @@
   package: name=pass
 - name: Install Dunst
   package: name=dunst
-- name: Install j4 dmenu
-  package: name=j4-dmenu-desktop
-- name: Install passmenu (No longer included in pass)
-  package:
-    name: passmenu
-  when: ansible_os_family != 'RedHat' or ansible_distribution_major_version != '7'
 - name: Install dev fonts
   package:
     name: dejavu-sans-mono-fonts,gdouros-symbola-fonts

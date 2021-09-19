@@ -8,14 +8,7 @@
   package: name=xloadimage
 - name: Install Dunst
   package: name=dunst
-- name: Install passmenu (No longer included in pass)
-  package:
-    name: passmenu
-  when: ansible_os_family != 'RedHat' or ansible_distribution_major_version != '7'
-- name: Install dmenu
-  package: name=dmenu
-- name: Install j4 dmenu
-  package: name=j4-dmenu-desktop
+- include_tasks: rofi.yml
 - name: Install dev fonts
   package: name=dejavu-sans-mono-fonts
 - name: Install external camera tools

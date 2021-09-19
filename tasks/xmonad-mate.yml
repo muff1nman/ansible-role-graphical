@@ -12,7 +12,7 @@
   package: name=xmonad-mate,xmonad,ghc-xmonad-contrib-devel
 - name: Install haskell dbus dev package
   package: name=ghc-dbus-devel
-- include_tasks: dmenu2.yml
+- include_tasks: rofi.yml
 - name: Ensure mate screensaver is removed
   package: name=mate-screensaver state=absent
 - name: Install light locker
