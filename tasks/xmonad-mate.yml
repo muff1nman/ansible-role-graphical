@@ -31,4 +31,7 @@
 - name: Install nitrogen
   package:
     name: nitrogen
+- name: Install mate-screenshot
+  package:
+    name: mate-screenshot
 # TODO acpi??

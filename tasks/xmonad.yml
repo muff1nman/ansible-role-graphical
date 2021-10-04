@@ -21,5 +21,8 @@
 - name: Install dex-autostart
   package:
     name: dex-autostart
+- name: Install mate-screenshot
+  package:
+    name: mate-screenshot
 
 # TODO acpi??
