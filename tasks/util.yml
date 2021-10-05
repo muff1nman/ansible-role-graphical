@@ -26,3 +26,6 @@
   package:
     name: setroubleshoot
 - include_tasks: libreoffice.yml
+- name: Install gimp
+  package:
+    name: gimp
