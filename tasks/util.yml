@@ -7,7 +7,7 @@
   package:
     name: dejavu-sans-mono-fonts,gdouros-symbola-fonts
 - name: Install external camera tools
-  package: name=gvfs-mtp,gvfs-gphoto2,eog,darktable,gvfs-smb,gvfs-fuse
+  package: name=gvfs-mtp,gvfs-gphoto2,eog,darktable,gvfs-smb,gvfs-fuse,raw-thumbnailer
   #python2-smbc
 - package: name=engrampa
 - package: name=evince
