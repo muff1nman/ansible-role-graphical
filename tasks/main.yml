@@ -46,7 +46,7 @@
     - amd_gpu_workaround
     - ansible_os_family != 'RedHat' or ansible_distribution_major_version != '7'
   notify: [ 'Update Boot Image' ]
-- include_tasks: laptop.yml
+- include_tasks: brightnessctl.yml
   when: "laptop is defined and laptop"
 - include_tasks: qemu-guest.yml
   when: "graphical_env is defined and graphical_env == 'qemu'"

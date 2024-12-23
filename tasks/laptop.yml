@@ -1,5 +1,2 @@
 ---
-- name: Install synaptics driver
-  package:
-    name: xorg-x11-drv-synaptics
 - include_tasks: brightnessctl.yml
