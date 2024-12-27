@@ -6,6 +6,6 @@
     name: xset # Used by rofi-pass
 - name: Setup rofi-pass
   get_url:
-    url: "https://raw.githubusercontent.com/carnager/rofi-pass/629ad8d73a72d90f531ab6ebbdf78db710e25f2f/rofi-pass"
+    url: "https://raw.githubusercontent.com/carnager/rofi-pass/8aa6b9293a8f0af267425326fa966966ca42085e/rofi-pass"
     dest: "/usr/local/bin/rofi-pass"
     mode: 0755
